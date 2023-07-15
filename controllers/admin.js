@@ -79,6 +79,9 @@ exports.getEditProduct = (req, res, next) => {
     const prodId = req.params.productId;
     Product.findById(prodId)
         .then(product => {
+            if (!product) {
+                return res.redirect('/');
+            }
             res.render('admin/edit-product.ejs', {
                 pageTitle: 'Edit Product',
                 path: "/admin/edit-product",
@@ -98,7 +101,7 @@ exports.getEditProduct = (req, res, next) => {
 exports.postEditProduct = (req, res, next) => {
     const prodId = req.body.productId;
     const updatedTitle = req.body.title;
-    const updatedImageUrl = req.body.imageUrl;
+    const image = req.file;
     const updatedPrice = req.body.price;
     const updatedDescription = req.body.description;
 
@@ -112,9 +115,9 @@ exports.postEditProduct = (req, res, next) => {
             hasError: true,
             product: {
                 title: updatedTitle,
-                imageUrl: updatedImageUrl,
                 price: updatedPrice,
-                description: updatedDescription
+                description: updatedDescription,
+                _id: prodId
             },
             errorMessage: errors.array()[0].msg
         });
@@ -128,13 +131,16 @@ exports.postEditProduct = (req, res, next) => {
             product.title = updatedTitle;
             product.price = updatedPrice;
             product.description = updatedDescription;
-            product.imageUrl = updatedImageUrl;
+            if (image) {
+                product.imageUrl = image.path;
+            }
             return product.save().then(result => {
                 console.log('Updated Product');
                 res.redirect('/admin/products');
             })
         })
         .catch(err => {
+            console.log(err);
             const error = new Error(err);
             error.httpStatusCode = 500;
             return next(error);
