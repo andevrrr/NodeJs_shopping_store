@@ -9,7 +9,7 @@ const crypto = require('crypto');
 
 const transporter = nodemailer.createTransport(sendgridTransport({
   auth: {
-    api_key: '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'
+    api_key: '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'
   }
 }));
 
