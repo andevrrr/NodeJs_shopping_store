@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "MONGO_USER=anton MONGO_PASSWORD=PLiaApfQ7vwmm0wZ MONGO_DEFAULT_DATABASE=shop STRIPE_KEY=sk_test_51NUV6CG4oWiXGbU2J2oUFDY6ZfDiTdEyIbC9OiFNe1pxsOW8scryhEgsA5PX2m6YyFLgxoNvQyAHM9K2T3bgcE9d00EJG3kpuZ node app.js",
+    "start:dev": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +16,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
+    "compression": "^1.7.4",
     "connect-flash": "^0.1.1",
     "connect-mongodb-session": "^3.1.1",
     "csurf": "^1.11.0",
@@ -23,12 +25,15 @@
     "express-handlebars": "^7.0.7",
     "express-session": "^1.17.3",
     "express-validator": "^7.0.1",
+    "helmet": "^7.0.0",
     "mongodb": "^5.7.0",
     "mongoose": "^7.3.2",
+    "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.3",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "pdfkit": "^0.13.0",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "stripe": "^12.13.0"
   }
 }
